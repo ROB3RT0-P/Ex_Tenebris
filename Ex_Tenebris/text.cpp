@@ -20,6 +20,7 @@ Text::Text(SDL_Renderer* renderer, const std::string& fontPath, int fontSize, SD
 
     renderer_ = renderer;
     textColor_ = textColor;
+    modTextColor_ = textColor;
 }
 
 Text::~Text() 
@@ -28,7 +29,7 @@ Text::~Text()
     TTF_Quit();
 }
 
-void Text::RenderConsoleText(std::string&& text, int x, int y)
+void Text::RenderConsoleText(const std::string&& text, int x, int y)
 {
     int xOffset = 0;
     for (char ch : text) 
@@ -59,7 +60,7 @@ void Text::RenderConsoleText(std::string&& text, int x, int y)
 }
 
 
-void Text::RenderGameText(std::string&& text, int x, int y)
+void Text::RenderGameText(const std::string&& text, int x, int y)
 {
     int xOffset = 0;
     for (char ch : text)
@@ -89,7 +90,7 @@ void Text::RenderGameText(std::string&& text, int x, int y)
     }
 }
 
-void Text::RenderDebugText(std::string&& text, int x, int y)
+void Text::RenderDebugText(const std::string&& text, int x, int y)
 {
     int xOffset = 0;
     for (char ch : text)
@@ -155,4 +156,60 @@ void Text::RenderFlashingText(const std::string& text, int x, int y, Uint32 curr
     {
         RenderText(text, x, y, TextType::NORMAL);
     }
+}
+
+/*
+void Text::RenderPhasingText(const std::string& text, int x, int y, Uint32 currentTime, Uint32 period)
+{
+    // Calculate alpha based on sine wave
+    float alpha = sin(currentTime * 2 * M_PI / period); // M_PI is the constant for PI
+
+    // Map the sine wave from [-1, 1] to [0, 255] for alpha blending
+    Uint8 alphaValue = static_cast<Uint8>((alpha + 1.0) * 127.5);
+
+    // Set alpha value for the text color
+    SDL_SetTextureAlphaMod(textColor_, alphaValue);
+
+    // Render the text with modified alpha
+    RenderText(text, x, y, TextType::NORMAL);
+
+    // Reset alpha back to 255 for subsequent rendering
+    SDL_SetTextureAlphaMod(textColor_, 255);
+}
+
+
+void Text::RenderPhasingText(const std::string& text, int x, int y, Uint32 currentTime, Uint32 period)
+{
+    // Calculate alpha based on sine wave
+    float alpha = sin(currentTime * 2 * M_PI / period); // M_PI is the constant for PI
+
+    // Map the sine wave from [-1, 1] to [0, 255] for alpha blending
+    Uint8 alphaValue = static_cast<Uint8>((alpha + 1.0) * 127.5);
+
+    // Set alpha value for the text color
+    SDL_Color originalColor = modTextColor_;
+    modTextColor_.a = alphaValue;
+
+    // Render the text with modified alpha
+    RenderText(text, x, y, TextType::NORMAL);
+}
+*/
+
+void Text::RenderPhasingText(const std::string& text, int x, int y, Uint32 currentTime, Uint32 period)
+{
+    // Calculate alpha based on sine wave
+    float alpha = sin(currentTime * 2 * M_PI / period); // M_PI is the constant for PI
+
+    // Map the sine wave from [-1, 1] to [0, 255] for alpha blending
+    Uint8 alphaValue = static_cast<Uint8>((alpha + 1.0) * 127.5);
+
+    // Set alpha value for the text color
+    SDL_Color originalColor = textColor_;
+    textColor_.a = alphaValue;
+
+    // Render the text with modified alpha
+    RenderText(text, x, y, TextType::NORMAL);
+
+    // Reset alpha back to original value for subsequent rendering
+    textColor_ = originalColor;
 }

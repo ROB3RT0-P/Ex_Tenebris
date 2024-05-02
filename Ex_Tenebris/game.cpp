@@ -26,7 +26,7 @@ bool Game::initialize(int ScreenWidth, int ScreenHeight)
 		}
 
 		// RJP - Create window
-		gWindow = SDL_CreateWindow("Peril's Passage", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH_, SCREEN_HEIGHT_, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("Ex Tenebris", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH_, SCREEN_HEIGHT_, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -245,10 +245,13 @@ void Game::render(const Info& info)
 		//textureRenderer->textureRender(mainMenuTexture_, fScreenWidth_ * 0.0f, fScreenHeight_ * 0.0f, mainMenuTextureScaleX_, mainMenuTextureScaleY_);
 		textureRenderer->textureRenderScaledToScreen(mainMenuTexture_, 0, 0, fScreenWidth_, fScreenHeight_);
 		gameText->RenderConsoleText("EX TENEBRIS", static_cast<int>(fScreenWidth_ * 0.41f), static_cast<int>(fScreenHeight_ * 0.05f));
-		gameText->RenderConsoleText("Retributio ab intus...", static_cast<int>(fScreenWidth_ * 0.29f), static_cast<int>(fScreenHeight_ * 0.9f));
+		gameText->RenderPhasingText("Retributio ab intus...", static_cast<int>(fScreenWidth_ * 0.35f), static_cast<int>(fScreenHeight_ * 0.9f), SDL_GetTicks(), 2000);
+
 #ifdef _DEBUG
 		debugText->RenderDebugText("MAIN_MENU", 10, 10);
-#endif
+		consoleText->RenderFlashingText("Flashing Text", 100, 100, SDL_GetTicks(), 1000);
+		gameText->RenderPhasingText("Phasing Text", 100, 200, SDL_GetTicks(), 2000);
+#endif.
 		break;
 
 	case GameState::PLAY:
