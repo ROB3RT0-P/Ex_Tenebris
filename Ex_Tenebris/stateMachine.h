@@ -15,6 +15,10 @@ enum class GameState
     CONTINUE,
     INTRO,
     ESCAPE,
+
+#ifdef _DEBUG
+    DEBUG,
+#endif
 };
 
 enum class TransitionState {
@@ -23,7 +27,7 @@ enum class TransitionState {
     FADE_OUT,
     SLIDE_LEFT,
     SLIDE_RIGHT,
-    CUSTOM // You can define your custom transition states
+    CUSTOM,
 };
 
 class StateMachine 

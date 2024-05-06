@@ -140,6 +140,7 @@
     <ClCompile Include="controls.h" />
     <ClCompile Include="entitymanager.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="inventory.cpp" />
     <ClCompile Include="loadingprocess.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parallaxBackground.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="entity.h" />
     <ClInclude Include="entitymanager.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="inventory.h" />
     <ClInclude Include="stateMachine.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="iprocess.h" />

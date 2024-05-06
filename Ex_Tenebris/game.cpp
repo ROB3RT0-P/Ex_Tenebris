@@ -249,10 +249,16 @@ void Game::render(const Info& info)
 
 #ifdef _DEBUG
 		debugText->RenderDebugText("MAIN_MENU", 10, 10);
+#endif
+		break;
+
+#ifdef _DEBUG
+	case GameState::DEBUG:
+		debugText->RenderDebugText("DEBUG", 10, 10);
 		consoleText->RenderFlashingText("Flashing Text", 100, 100, SDL_GetTicks(), 1000);
 		gameText->RenderPhasingText("Phasing Text", 100, 200, SDL_GetTicks(), 2000);
-#endif.
 		break;
+#endif
 
 	case GameState::PLAY:
 	
@@ -318,7 +324,7 @@ bool Game::handleEvents(float deltaTime)
 				cUserInput_ = controls::handleInput(event_);
 				if (cUserInput_ == '\a' && stateMachine->getState() == GameState::MENU)
 				{
-					stateMachine->setState(GameState::PAUSE);
+					stateMachine->setState(GameState::DEBUG);
 					audio->stop();
 					bMusicPlaying_ = false;
 				}
