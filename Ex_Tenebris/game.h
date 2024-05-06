@@ -27,6 +27,10 @@
 #include <iostream>
 #include <vector>
 
+#ifdef _DEBUG
+#include "debug.h"
+#endif
+
 // Forwards
 struct SDL_Texture;
 struct SDL_Window;
@@ -121,4 +125,8 @@ private:
 
 	const float mainMenuTextureScaleX_ = 1.3f;
 	const float mainMenuTextureScaleY_ = 1.3f;
+
+#ifdef _DEBUG
+	Debug* debug;
+#endif
 };

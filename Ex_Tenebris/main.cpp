@@ -85,6 +85,10 @@ int main( int argc, char* args[] )
 	global::resourceManager()->initializeResourceDatabase(global::resourceDatabase, sizeof(global::resourceDatabase) / 
 		sizeof(global::resourceDatabase[0]), raw_enum(global::Res::Max), "./Data/");
 
+	Uint32 prevTicks = 0;
+	Uint32 currentTicks = 0;
+	float deltaTime = 0.0f;
+
 	if( !global::game()->initialize(1280, 720))
 	{
 		printf( "Failed to initialize!\n" );
@@ -93,12 +97,12 @@ int main( int argc, char* args[] )
 	{
 		{	
 			bool quit = false;
-			Uint32 prevTicks = SDL_GetTicks();
+			prevTicks = SDL_GetTicks();
 
 			while( !quit )
 			{
-				Uint32 currentTicks = SDL_GetTicks();
-				float deltaTime = (currentTicks - prevTicks) / 1000.f;
+				currentTicks = SDL_GetTicks();
+				deltaTime = (currentTicks - prevTicks) / 1000.f;
 				prevTicks = currentTicks;
 
 				global::game()->tickLogic(deltaTime);

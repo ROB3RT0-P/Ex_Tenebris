@@ -57,6 +57,9 @@
     <ClCompile Include="inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console.h">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="audio.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

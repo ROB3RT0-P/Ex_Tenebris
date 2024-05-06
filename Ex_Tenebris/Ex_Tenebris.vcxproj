@@ -138,6 +138,7 @@
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="controls.h" />
+    <ClCompile Include="debug.cpp" />
     <ClCompile Include="entitymanager.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="inventory.cpp" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="audio.h" />
     <ClInclude Include="console.h" />
+    <ClInclude Include="debug.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="entitymanager.h" />
     <ClInclude Include="game.h" />

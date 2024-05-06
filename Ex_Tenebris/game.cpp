@@ -63,6 +63,11 @@ bool Game::initialize(int ScreenWidth, int ScreenHeight)
 
 bool Game::loadInitialResources()
 {
+#ifdef _DEBUG
+	debug = new Debug();
+	debug->startFPSCounter();
+#endif
+
 	fScreenWidth_ = static_cast<float>(SCREEN_WIDTH_);
 	fScreenHeight_ = static_cast<float>(SCREEN_HEIGHT_);
 	fConsoleRenderPosX_ = fScreenWidth_ * 0.1f;
@@ -157,6 +162,12 @@ void Game::tickLogic( float deltaTime )
 	
 	switch ( stateMachine->getState() ) 
 	{
+	case GameState::DEBUG:
+#ifdef _DEBUG
+		debug->updateFPSCounter();
+#endif
+		break;
+
 		case GameState::MENU:
 			if (!bMusicPlaying_)
 			{
@@ -255,8 +266,9 @@ void Game::render(const Info& info)
 #ifdef _DEBUG
 	case GameState::DEBUG:
 		debugText->RenderDebugText("DEBUG", 10, 10);
-		consoleText->RenderFlashingText("Flashing Text", 100, 100, SDL_GetTicks(), 1000);
-		gameText->RenderPhasingText("Phasing Text", 100, 200, SDL_GetTicks(), 2000);
+		debugText->RenderFlashingText("Flashing Text", 100, 100, SDL_GetTicks(), 1000);
+		debugText->RenderPhasingText("Phasing Text", 100, 200, SDL_GetTicks(), 2000);
+		debugText->RenderDebugText("FPS: " + std::to_string(debug->getMaxFPS()), 100, 300);
 		break;
 #endif
 
@@ -331,6 +343,15 @@ bool Game::handleEvents(float deltaTime)
 			}
 
 
+			if (console->manageInput(cUserInput_)) return 1;
+
+			break;
+
+		case GameState::DEBUG:
+			while (SDL_PollEvent(&event_) != 0)
+			{
+				cUserInput_ = controls::handleInput(event_);
+			}
 			if (console->manageInput(cUserInput_)) return 1;
 
 			break;
