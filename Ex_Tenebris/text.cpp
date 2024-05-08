@@ -158,7 +158,7 @@ void Text::RenderFlashingText(const std::string& text, int x, int y, Uint32 curr
     }
 }
 
-/*
+/* 
 void Text::RenderPhasingText(const std::string& text, int x, int y, Uint32 currentTime, Uint32 period)
 {
     // Calculate alpha based on sine wave
@@ -168,40 +168,30 @@ void Text::RenderPhasingText(const std::string& text, int x, int y, Uint32 curre
     Uint8 alphaValue = static_cast<Uint8>((alpha + 1.0) * 127.5);
 
     // Set alpha value for the text color
-    SDL_SetTextureAlphaMod(textColor_, alphaValue);
+    SDL_Color originalColor = textColor_;
+    textColor_.a = alphaValue;
 
     // Render the text with modified alpha
     RenderText(text, x, y, TextType::NORMAL);
 
-    // Reset alpha back to 255 for subsequent rendering
-    SDL_SetTextureAlphaMod(textColor_, 255);
-}
-
-
-void Text::RenderPhasingText(const std::string& text, int x, int y, Uint32 currentTime, Uint32 period)
-{
-    // Calculate alpha based on sine wave
-    float alpha = sin(currentTime * 2 * M_PI / period); // M_PI is the constant for PI
-
-    // Map the sine wave from [-1, 1] to [0, 255] for alpha blending
-    Uint8 alphaValue = static_cast<Uint8>((alpha + 1.0) * 127.5);
-
-    // Set alpha value for the text color
-    SDL_Color originalColor = modTextColor_;
-    modTextColor_.a = alphaValue;
-
-    // Render the text with modified alpha
-    RenderText(text, x, y, TextType::NORMAL);
+    // Reset alpha back to original value for subsequent rendering
+    textColor_ = originalColor;
 }
 */
 
 void Text::RenderPhasingText(const std::string& text, int x, int y, Uint32 currentTime, Uint32 period)
 {
+    Uint8 minAlpha = 1;
+
     // Calculate alpha based on sine wave
     float alpha = sin(currentTime * 2 * M_PI / period); // M_PI is the constant for PI
 
     // Map the sine wave from [-1, 1] to [0, 255] for alpha blending
     Uint8 alphaValue = static_cast<Uint8>((alpha + 1.0) * 127.5);
+
+    // Ensure alpha doesn't fall below the minimum threshold
+    if (alphaValue < minAlpha)
+        return;
 
     // Set alpha value for the text color
     SDL_Color originalColor = textColor_;

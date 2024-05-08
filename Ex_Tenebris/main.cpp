@@ -54,12 +54,11 @@ namespace // hidden namespace
 	EntityManager* EntityManagerInstance;
 	ResourceManager* ResourceManagerInstance;
 
-
 	ResourceManager::ResourceDBEntry resourceDatabase[] =
 	{
 		{ raw_enum(Res::Default),			"textures/texture.png",			ResourceManager::ResourceType::Texture },
-		{ raw_enum(Res::PlayerSprite),		"textures/.png",				ResourceManager::ResourceType::Texture },
-		{ raw_enum(Res::EnemySprite),		"textures/.png",				ResourceManager::ResourceType::Texture },
+		{ raw_enum(Res::PlayerSprite),		"textures/texture.png",			ResourceManager::ResourceType::Texture },
+		{ raw_enum(Res::EnemySprite),		"textures/texture.png",			ResourceManager::ResourceType::Texture },
 		{ raw_enum(Res::MainMenuSprite),	"textures/main_menu.png",		ResourceManager::ResourceType::Texture },
 		{ raw_enum(Res::BackgroundSprite),	"textures/pathway.png",			ResourceManager::ResourceType::Texture },
 		{ raw_enum(Res::GameOverSprite),	"textures/game_over.png",		ResourceManager::ResourceType::Texture },

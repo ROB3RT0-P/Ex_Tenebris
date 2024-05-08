@@ -110,32 +110,18 @@ bool Game::loadInitialResources()
 	deadEndTexture_ = global::resourceManager()->getResourceAsTexture(raw_enum(global::Res::DeadEndSprite));
 	continueTexture_ = global::resourceManager()->getResourceAsTexture(raw_enum(global::Res::ContinueSprite));
 	escapeTexture_ = global::resourceManager()->getResourceAsTexture(raw_enum(global::Res::EscapeSprite));
-		
-	//global::entityManager()->registerEntityCreator(raw_enum(global::EntityType::Player), &IEntity::playerEntityCreateFunc(nullptr), &playerEntityDestroyFunc, nullptr);
+
+	playerEntity->registerWithEntityManager();	
 	playerEntity = static_cast<Player*>(global::entityManager()->createEntity(raw_enum(global::EntityType::Player)));
 
 	// RJP - Temporary texture loading - This is to be moved over to the Resource Manager.
 	SDL_Surface* surface = IMG_Load("Data/textures/skulls_BG.png");
 	mainMenuTexture_ = SDL_CreateTextureFromSurface(gRenderer, surface);
 	SDL_FreeSurface(surface);
-	surface = IMG_Load("Data/textures/pathways.png");
-	backgroundTexture_ = SDL_CreateTextureFromSurface( gRenderer, surface );
-	SDL_FreeSurface(surface);
-	surface = IMG_Load("Data/textures/game_over.png");
-	gameOverTexture_ = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-	surface = IMG_Load("Data/textures/dead_end.png");
-	deadEndTexture_ = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-	surface = IMG_Load("Data/textures/continue.png");
-	continueTexture_ = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-	surface = IMG_Load("Data/textures/escape.png");
-	escapeTexture_ = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-
+	
 	playerEntity = new Player();
 	playerEntity->init();
+
 	debugText = new Text(gRenderer, "Data/kenney/Fonts/kenneyPixel.ttf", debugTextSize_, debugTextColor_);
 	gameText = new Text(gRenderer, "Data/kenney/Fonts/kenneyPixel.ttf", textSize_, textColor_);
 	consoleText = new Text(gRenderer, "Data/kenney/Fonts/kenneyPixel.ttf", textSize_, textColor_);
@@ -160,7 +146,7 @@ void Game::tickLogic( float deltaTime )
 {
 	global::processManager()->tickProcesses();
 	
-	switch ( stateMachine->getState() ) 
+	switch ( stateMachine->getState() )
 	{
 	case GameState::DEBUG:
 #ifdef _DEBUG
@@ -253,7 +239,6 @@ void Game::render(const Info& info)
 	{
 	case GameState::MENU:
 		SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
-		//textureRenderer->textureRender(mainMenuTexture_, fScreenWidth_ * 0.0f, fScreenHeight_ * 0.0f, mainMenuTextureScaleX_, mainMenuTextureScaleY_);
 		textureRenderer->textureRenderScaledToScreen(mainMenuTexture_, 0, 0, fScreenWidth_, fScreenHeight_);
 		gameText->RenderConsoleText("EX TENEBRIS", static_cast<int>(fScreenWidth_ * 0.41f), static_cast<int>(fScreenHeight_ * 0.05f));
 		gameText->RenderPhasingText("Retributio ab intus...", static_cast<int>(fScreenWidth_ * 0.35f), static_cast<int>(fScreenHeight_ * 0.9f), SDL_GetTicks(), 2000);
@@ -268,7 +253,8 @@ void Game::render(const Info& info)
 		debugText->RenderDebugText("DEBUG", 10, 10);
 		debugText->RenderFlashingText("Flashing Text", 100, 100, SDL_GetTicks(), 1000);
 		debugText->RenderPhasingText("Phasing Text", 100, 200, SDL_GetTicks(), 2000);
-		debugText->RenderDebugText("FPS: " + std::to_string(debug->getMaxFPS()), 100, 300);
+		debugText->RenderDebugText("FPS: " + std::to_string(debug->getMaxFPS()), SCREEN_WIDTH_ - 100, 100);
+		debugText->RenderDebugText("Player: " + std::to_string(playerEntity->getEntityID()), 100, 400);
 		break;
 #endif
 

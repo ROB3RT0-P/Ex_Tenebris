@@ -11,7 +11,7 @@ Player::Player(float x, float y) : fPlayerX_(x), fPlayerY_(y) {};
 static IEntity* playerEntityCreateFunc(void* user) 
 {
 	Player* playerEntity = new Player();
-	// RJP - Should be already loaded but increases the ref count
+	playerEntity->init();
 	global::resourceManager()->loadResource(raw_enum(global::Res::PlayerSprite));
 
 	return playerEntity;
@@ -56,14 +56,14 @@ void Player::update(float deltaTime)
 
 void Player::move(float newX, float newY, float deltaTime)
 {
-	// Calculate the distance to move based on playerSpeed and deltaTime
+	// RJP - Calculate the distance to move based on playerSpeed and deltaTime
 	float moveDistance = fPlayerSpeed_ * deltaTime;
 
-	// Calculate the target position after movement
+	// RJP - Calculate the target position after movement
 	float targetX = fPlayerX_ + (newX * moveDistance);
 	float targetY = fPlayerY_ + (newY * moveDistance);
 
-	// Interpolate between current position and target position
+	// RJP - Interpolate between current position and target position
 	fPlayerX_ = lerp(fPlayerX_, targetX, deltaTime);
 	fPlayerY_ = lerp(fPlayerY_, targetY, deltaTime);
 

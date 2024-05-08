@@ -7,10 +7,8 @@
 
 #include <string>
 
-class Utils 
+namespace Utils 
 {
-public:
-
 	static int stringLen(std::string str)
 	{
         int length = 0;
@@ -19,7 +17,4 @@ public:
         }
         return length;
 	}
-
-private:
-
 };
