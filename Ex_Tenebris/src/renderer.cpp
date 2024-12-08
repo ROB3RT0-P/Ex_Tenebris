@@ -13,6 +13,7 @@ void Renderer::textureRender( SDL_Texture* texture, float x, float y , float sca
 
 		dest.x = static_cast<int>(x);
 		dest.y = static_cast<int>(y);
+
 		SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
 
 		dest.w *= scaleX;
@@ -35,7 +36,6 @@ void Renderer::textureRenderScaledToScreen(SDL_Texture* texture, float x, float 
 		dest.x = static_cast<int>(x);
 		dest.y = static_cast<int>(y);
 
-		// Calculate destination width and height based on screen size and scaling factors
 		dest.w = static_cast<int>(screenWidth);
 		dest.h = static_cast<int>(screenHeight);
 

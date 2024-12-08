@@ -21,7 +21,8 @@ enum class GameState
 #endif
 };
 
-enum class TransitionState {
+enum class TransitionState 
+{
     NONE,
     FADE_IN,
     FADE_OUT,
@@ -42,7 +43,8 @@ private:
     GameState gsCurrentState;
 };
 
-class TransitionStateMachine {
+class TransitionStateMachine 
+{
 public:
     TransitionStateMachine() : tsCurrentTransition(TransitionState::NONE) {}
 

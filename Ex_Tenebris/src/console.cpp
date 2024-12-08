@@ -28,15 +28,15 @@ int Console::manageInput(char userInput)
 	{
 		if ( userInput == '\b' && !sConsoleOutput_.empty() )
 		{
-			sConsoleOutput_.pop_back(); // RJP - Backspace - Remove last letter.
+			sConsoleOutput_.pop_back();
 			return 0;
 		}
 		else if ( userInput == '\r' )
 		{
 			updateGame();
 			sPrevConsoleOutput_ = sConsoleOutput_;
-			vConsoleOutput_.push_back(sConsoleOutput_); // RJP - Adding outputs to a list in case it's needed later.
-			sConsoleOutput_.clear(); // RJP - Enter - Reset console value after pressing enter.
+			vConsoleOutput_.push_back(sConsoleOutput_);
+			sConsoleOutput_.clear();
 			return 0;
 		}
 		else if ( userInput == '\t' ) 
@@ -45,7 +45,7 @@ int Console::manageInput(char userInput)
 		}
 		else if ( userInput == '\a')
 		{
-			return 0; // RJP - Do nothing.
+			return 0;
 		}
 		else if ( Utils::stringLen(sConsoleOutput_) < iMaxConsoleLen_ )
 		{

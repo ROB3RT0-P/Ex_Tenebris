@@ -34,7 +34,6 @@ public:
 	std::string getPrevConsoleOutput() { return sPrevConsoleOutput_; }
 	std::string getConsoleOutput() { return sConsoleOutput_; }
 
-	// RJP - Function template for generic equality check
 	template<typename T>
 	bool isEqual(const T& a, const T& b);
 

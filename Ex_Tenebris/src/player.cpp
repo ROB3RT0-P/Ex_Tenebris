@@ -56,14 +56,11 @@ void Player::update(float deltaTime)
 
 void Player::move(float newX, float newY, float deltaTime)
 {
-	// RJP - Calculate the distance to move based on playerSpeed and deltaTime
 	float moveDistance = fPlayerSpeed_ * deltaTime;
 
-	// RJP - Calculate the target position after movement
 	float targetX = fPlayerX_ + (newX * moveDistance);
 	float targetY = fPlayerY_ + (newY * moveDistance);
 
-	// RJP - Interpolate between current position and target position
 	fPlayerX_ = lerp(fPlayerX_, targetX, deltaTime);
 	fPlayerY_ = lerp(fPlayerY_, targetY, deltaTime);
 

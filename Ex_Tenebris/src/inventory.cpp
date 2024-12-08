@@ -8,7 +8,6 @@
 
 Inventory::Inventory() 
 {
-    // RJP - Initialize all pointers to nullptr
     for (int i = 0; i < TABLE_SIZE; ++i) 
     {
         table[i] = nullptr;
@@ -34,7 +33,6 @@ void Inventory::addItem(const std::string& item, int quantity)
     int index = hash(item);
     Item* newItem = new Item(item, quantity);
 
-    // RJP - If the item already exists, add quantity to its count
     Item* curr = table[index];
     while (curr) {
         if (curr->name == item) {
@@ -44,7 +42,6 @@ void Inventory::addItem(const std::string& item, int quantity)
         curr = curr->next;
     }
 
-    // RJP - Insert the new item at the beginning of the list
     newItem->next = table[index];
     table[index] = newItem;
 }
@@ -109,7 +106,6 @@ void Inventory::clearInventory()
     }
 }
 
-// RJP - Output to console for debugging.
 void Inventory::displayInventory() const 
 {
     std::cout << "Inventory:" << std::endl;

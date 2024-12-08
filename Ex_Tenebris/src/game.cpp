@@ -321,7 +321,9 @@ bool Game::handleEvents(float deltaTime)
 				cUserInput_ = controls::handleInput(event_);
 				if (cUserInput_ == '\a' && stateMachine->getState() == GameState::MENU)
 				{
-					//stateMachine->setState(GameState::DEBUG);
+#ifdef _DEBUG
+					stateMachine->setState(GameState::DEBUG);
+#endif
 					audio->stop();
 					bMusicPlaying_ = false;
 				}

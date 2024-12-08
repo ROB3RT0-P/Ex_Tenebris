@@ -15,10 +15,13 @@
 class LoadingProcess : public IProcess
 {
 public:
-	struct LoadRequest {
+	struct LoadRequest 
+	{
 		global::Res resource;
-		union {
-			struct {
+		union 
+		{
+			struct 
+			{
 				size_t len;
 				void* data;
 			} rBinary;
